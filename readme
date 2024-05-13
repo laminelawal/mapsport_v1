@@ -1,0 +1,40 @@
+Workout Tracker App
+
+This is a workout tracker application that allows users to record their workouts, including running and cycling sessions, and view them on a map. The application uses geolocation to determine the user's current position and map their workouts.
+Features
+
+    Add running or cycling workouts with details such as distance, duration, and cadence or elevation gain.
+    View workouts as markers on a map.
+    Click on workout markers to view details.
+    Toggle between running and cycling workouts.
+    Data persists between sessions using local storage.
+    Clear all workouts with a single click.
+
+Technologies Used
+
+    HTML
+    CSS
+    JavaScript (ES6+)
+    Leaflet.js (for interactive maps)
+
+How to Use
+
+    Clone this repository to your local machine.
+    Open the index.html file in your web browser.
+    Allow the application to access your location when prompted.
+    Use the form to add new workouts, selecting the workout type (running or cycling) and providing the necessary details (distance, duration, cadence or elevation gain).
+    Your workouts will be displayed as markers on the map. Click on a marker to view details about that workout.
+    To clear all workouts, click the "Clear All Workouts" button.
+
+Code Explanation
+
+    The application uses JavaScript classes to define the structure of workout objects, with separate classes for running and cycling workouts.
+    Geolocation is used to obtain the user's current position, which is then used to initialize the map.
+    Event listeners are added to the form inputs to handle user input and create new workout objects accordingly.
+    The Leaflet.js library is used to create interactive maps and display workout markers.
+    Local storage is used to persist workout data between sessions.
+    A method is provided to clear all workouts from local storage and reset the application.
+
+Credits
+
+This application was built as part of a coding project by Lamine. It incorporates concepts learned from various online tutorials and resources, like Jonas Schmedtmann the high property of the course and the project.
