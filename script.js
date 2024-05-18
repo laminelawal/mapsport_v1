@@ -142,15 +142,15 @@ class App {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    this.map = L.map('map').setView([latitude, longitude], 20);
+    map = L.map('map').setView([latitude, longitude], 20);
     //this is to choise another model of map, like google or other...
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
+    }).addTo(map);
 
     //Here when user click the map to  show the form.
-    this.map.on('click', this._showForm.bind(this));
+    map.on('click', this._showForm.bind(this));
 
     // The rendere marker is here cause there are a lot of staff to do before marker
     //to be marked on the map, so we have to take the marker position here.
@@ -196,10 +196,11 @@ class App {
   }
   /**Here im creating all logic to create a new object by the target type */
 
-  _showError() {
-    alertMsgContainer.classList.add('alert__msg--active');
-    alertMsgContainer.innerHTML = `${this._username} Please write a positive number 😅`;
+  _showError(username) {
+    if (!username) return this._initializeUsername();
 
+    alertMsgContainer.classList.add('alert__msg--active');
+    alertMsgContainer.innerHTML = `${username} Please write a positive number 😅`;
     const timer = setTimeout(() => {
       alertMsgContainer.classList.remove('alert__msg--active');
     }, 3800);
@@ -228,7 +229,7 @@ class App {
         !allInputAreNumber(duration, distance, cadence) ||
         !allIsPositiveNum(duration, distance, cadence)
       )
-        return this._showError();
+        return this._showError(this._username);
       workout = new Running([lat, lng], duration, distance, cadence);
       console.log(workout);
       //cheking if all logics are working
@@ -244,7 +245,7 @@ class App {
         !allInputAreNumber(duration, distance, elevation) ||
         !allIsPositiveNum(duration, distance, elevation)
       )
-        return this._showError();
+        return this._showError(this._username);
 
       workout = new Cycling([lat, lng], duration, distance, elevation);
       //cheking if all logics are working
@@ -267,7 +268,7 @@ class App {
     // const { lat, lng } = this.markEvent.latlng;
 
     L.marker(workout.coords, { draggable: true })
-      .addTo(this.map)
+      .addTo(map)
       .bindPopup(
         L.popup({
           closeButton: false,
@@ -353,7 +354,7 @@ class App {
     if (!workIndex) return;
     //Here creating a finded workout cliked and then setting the set view on the map marker.
     const workoute = this.workouts.find(a => a._id === workIndex.dataset.id);
-    this.map.setView(workoute.coords, 30);
+    map.setView(workoute.coords, 30);
   }
 
   _setLocalStorage() {
@@ -406,7 +407,7 @@ class App {
     const workoutToEdit = this.workouts.find(workout => workout._id === editId); // Find workout to edit
     const [lat, lng] = workoutToEdit.coords;
     L.marker([lat, lng], { draggable: false })
-      .addTo(this.map)
+      .addTo(map)
       .bindPopup(
         L.popup({
           closeButton: false,
